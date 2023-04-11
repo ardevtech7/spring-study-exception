@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+// API 예외 처리
 @Slf4j
 @RestController
 public class ApiExceptionController {
-
     @GetMapping("/api/members/{id}")
     public MemberDto getMember(@PathVariable String id) {
         if (id.equals("ex")) {
@@ -30,6 +30,7 @@ public class ApiExceptionController {
         return new MemberDto(id, "hello" + id);
     }
 
+    // 스프링이 제공하는 ExceptionResolver 테스트 시, ExControllerAdvice 주석 처리
     @GetMapping("/api/response-status-ex1")
     public String responseStatusEx1() {
         throw new BadRequestException();
@@ -40,6 +41,7 @@ public class ApiExceptionController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "error.bad", new IllegalArgumentException());
     }
 
+    // 디버깅 : data 파라미터 값이 Integer 가 아닌 경우, DefaultHandlerExceptionResolver 클래스에서 handleTypeMismatch 메소드 디버깅
     @GetMapping("/api/default-handler-ex")
     public String defaultException(@RequestParam Integer data) {
         return "ok";

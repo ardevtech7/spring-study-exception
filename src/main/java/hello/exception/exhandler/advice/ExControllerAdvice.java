@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+// Controller 에서 발생하는 모든 오류를 여기서 해결
+// @ControllerAdvice, @RestControllerAdvice 동일한 것.
 @Slf4j
 @RestControllerAdvice(basePackages = "hello.exception.api")
 public class ExControllerAdvice {
-
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
     public ErrorResult illegalExHandler(IllegalArgumentException e) {
@@ -33,5 +34,4 @@ public class ExControllerAdvice {
         log.error("[exceptionHandler] ex", e);
         return new ErrorResult("EX", "내부 오류");
     }
-
 }
